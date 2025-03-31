@@ -50,7 +50,7 @@ This dataset consists of **2030 molecules**, labeled as **BBB+ (permeable) or BB
 
 ## Setup Instructions
 
-### Prerequisities
+### Prerequisites
 
 To successfully run this project, the following should be installed:
 - Python 3.9 or later
