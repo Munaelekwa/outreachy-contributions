@@ -3,21 +3,24 @@ This Project aims to predict the ability of chemical compounds to cross the bloo
 
 ## Table of Contents  
 - [Project Overview](#project-overview)  
-- [Dataset Information](#dataset-information)  
+- [Dataset Information](#dataset-information)
+- [Project Structure](#project-structure)  
 - [Setup Instructions](#setup-instructions)  
   - [Prerequisites](#prerequisites)  
   - [Download and Installation](#download-and-installation)  
 - [Featurisation](#featurisation)  
 - [Model Building](#model-building)  
 - [Model Evaluation](#model-evaluation)  
-- [Results and Analysis](#results-and-analysis)  
+- [Results and Analysis](#results-and-analysis)
+  - [Model Performance Summary](#model-performance-summary)  
+  - [Areas of Improvement](#areas-of-improvement)  
 - [References](#references)
 
 ---
 
 ## Project Overview
 
-The Blood brain barrier is a selective, semi-permeable membrane that protects the brain and the central nervous system (CNS) from harmful materials in the blood stream. The blood brain barrier permeability of molecules is very important in drug discovery and research, especially in the development of drugs that act on the CNS and also in identifying neurotoxic drugs.
+The Blood brain barrier (BBB) is a selective, semi-permeable membrane that protects the brain and the central nervous system (CNS) from harmful materials in the blood stream. The blood brain barrier permeability of molecules is very important in drug discovery and research, especially in the development of drugs that act on the CNS and also in identifying neurotoxic drugs. Predicting the ability of a compound to cross the BBB pre experiments and testing can save time and resources that would have been spent on a compound that won't cross the barrier anyway.
 This project is a binary classification machine learning model that will accept the smiles notation of a compound as input and predict the bbb permeability based on the chemical and molecular properties represented in the model. Permeable drugs as predicted are labelled 1 and impermeaple drugs are labelled 0. 
 
 ## Dataset Information  
@@ -47,6 +50,29 @@ This project uses the **Blood-Brain Barrier Permeability (BBBP) dataset** from [
 
 
 This dataset consists of **2030 molecules**, labeled as **BBB+ (permeable) or BBB- (non-permeable)** based on experimental permeability measurements.
+
+## Project Structure
+```bash
+├── data/               # Raw and featurised dataset files
+│   ├── figures/        # Analysis graphs
+│   ├── bbbp_test_featurised.csv
+│   ├── bbbp_test.csv
+│   ├── bbbp_train_featurised.csv
+│   ├── bbbp_train.csv
+│   ├── bbbp_valid_featurised.csv
+│   └── bbbp_valid.csv
+├── models/             # Saved machine learning model checkpoints
+├── notebooks/          # Jupyter notebook for analysis of trained model
+│   └── evaluation.ipynb
+├── scripts/            # Python utility scripts
+│   ├── download_data.py
+│   ├── featurisation.py
+│   ├── train_model.py
+│   ├── train_smote_model.py
+│   └── xgboost_train.py
+├── environment.yml    # Project dependencies
+└── README.md           # Project documentation
+```
 
 ## Setup Instructions
 
@@ -81,7 +107,7 @@ To recreate this project, follow these steps:
 
 The downloaded dataset was featurised, i.e., converted from raw molecular data (SMILES notation) into a numerical representation that can be interpreted by machine learning models.  
 
-The featuriser used is the **RDKit Descriptor Model** from [Ersilia Model Hub](https://www.ersilia.io/model-hub).  
+The featuriser used is the **RDKit Descriptor Model** from [Ersilia Model Hub](https://www.ersilia.io/model-hub). This was used because it provides a rich feature set of physicochemical and structural properties like the Topological Polar Surface area(TPSA), Lipophilicity(Log P), molecular weight, hydrogen bond donors/acceptors etc that influence the ability of molecules to cross the BBB.  
 
 ### Steps to Featurise Data:
 - Fetch and serve the Ersilia model to be used:  
@@ -135,3 +161,28 @@ Jupyter notebook
 ```
 
 ## Results and Analysis
+
+### Model Performance Summary  
+
+| **Metric**   | **Train**  | **Validation** | **Test**  |
+|-------------|-----------|--------------|---------|
+| **Accuracy**  | 99.79%    | 89.16%       | 86.70%  |
+| **Precision** | 100.00%    | 89.00%       | 86.00%  |
+| **Recall**    | 100.00%    | 89.00%       | 87.00%  |
+| **F1-Score**  | 100.00%    | 89.00%       | 86.00%  |
+| **AUROC**   | 100.00%    | 91.72%       | 91.44%  |
+
+From the performance summary above, the model achieved an AUROC score of 0.9144 on the test data, which is quite a good performance. It means that 91 times out of 100, the model will correctly rank a BBB permeable compound over a non-permeable compound and can be relied on for drug discovery decisions, particularly in identifying compounds that are likely to be permeable to the BBB.
+Comparatively, based on this auroc score, it ranks 4th on the [TDC Leaderboard](https://tdcommons.ai/benchmark/admet_group/BBB_Martins) for models trained with this dataset, with the highest performing model reaching a score of 0.92.
+More details of the model performance can be found in the `evaluation.ipynb` notebook.
+
+### Areas of Improvement
+While the model performs well, it can also be improved upon. The confusion matrix reveals that it struggles a bit with specificity, particularly for class 0 molecules, as there were significant false positives (43/103), and this might be due to the class imbalance in the dataset - Class 1 molecules are overrepresented (1551:479).
+The model performance might benefit from:
+- Oversampling with SMOTE, to balance class distribution
+- Different model framework and featuriser.
+
+## References
+- https://www.rdkit.org/docs/index.html
+- https://scikit-learn.org/stable/modules/model_evaluation.html
+- https://machinelearningmastery.com/roc-curves-and-precision-recall-curves-for-classification-in-python/
