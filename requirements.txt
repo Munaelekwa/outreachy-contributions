@@ -3,3 +3,4 @@ joblib
 pandas
 rdkit
 scikit-learn==1.2.2
+numpy
