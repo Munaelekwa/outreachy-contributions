@@ -26,7 +26,8 @@ This project is a binary classification machine learning model that will accept 
 
 ## Live Project
 
-This project is live as a web app and can be accessed [here](https://bbbpredictor.streamlit.app/)
+This project is live as a web app and can be accessed [here](https://bbbpredictor.streamlit.app/).
+
 Click on the link above and enter the smiles notation of any chemical compound to get a prediction!
 
 ## Dataset Information  
