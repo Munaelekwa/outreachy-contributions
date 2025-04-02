@@ -2,7 +2,8 @@
 This Project aims to predict the ability of chemical compounds to cross the blood brain barrier based on their structural components using machine learning techniques.
 
 ## Table of Contents  
-- [Project Overview](#project-overview)  
+- [Project Overview](#project-overview)
+- [Live Project](#live-project)  
 - [Dataset Information](#dataset-information)
 - [Project Structure](#project-structure)  
 - [Setup Instructions](#setup-instructions)  
@@ -21,7 +22,12 @@ This Project aims to predict the ability of chemical compounds to cross the bloo
 ## Project Overview
 
 The Blood brain barrier (BBB) is a selective, semi-permeable membrane that protects the brain and the central nervous system (CNS) from harmful materials in the blood stream. The blood brain barrier permeability of molecules is very important in drug discovery and research, especially in the development of drugs that act on the CNS and also in identifying neurotoxic drugs. Predicting the ability of a compound to cross the BBB pre experiments and testing can save time and resources that would have been spent on a compound that won't cross the barrier anyway.
-This project is a binary classification machine learning model that will accept the smiles notation of a compound as input and predict the bbb permeability based on the chemical and molecular properties represented in the model. Permeable drugs as predicted are labelled 1 and impermeaple drugs are labelled 0. 
+This project is a binary classification machine learning model that will accept the smiles notation of a compound as input and predict the bbb permeability based on the chemical and molecular properties represented in the model. Permeable drugs as predicted are labelled 1 and impermeaple drugs are labelled 0.
+
+## Live Project
+
+This project is live as a web app and can be accessed [here](https://bbbpredictor.streamlit.app/)
+Click on the link above and enter the smiles notation of any chemical compound to get a prediction!
 
 ## Dataset Information  
 
