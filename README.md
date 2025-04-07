@@ -87,7 +87,7 @@ This dataset consists of **2030 molecules**, labeled as **BBB+ (permeable) or BB
 
 To successfully run this project, the following should be installed:
 - Python 3.9 or later
-- Ubuntu OS or WSL (If sysyem os is windows)
+- UNIX(Linux or Mac os) or WSL (If sysyem os is windows)
 - Miniconda/Anaconda
 - Docker
 
