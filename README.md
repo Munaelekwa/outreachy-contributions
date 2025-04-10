@@ -189,6 +189,20 @@ The model performance might benefit from:
 - Oversampling with SMOTE, to balance class distribution
 - Different model framework and featuriser.
 
+I explored oversampling with SMOTE and tried to use the Morgan Fingerprints featuriser from Ersilia and the XGBoost framework, to see the effect on model performance, and here's a summary of the results gotten for the different variations of featuriser and framework cobinations:
+
+| Model                                                  | Precision    | Recall | Accuracy |   F1 Score |    AUROC |
+|------------------------------------------|-------------|--------|-----------|-------------|-----------|
+| RDKit + Random Forest                       | 0.86       |    0.87       |    0.87            |        0.86           |      0.9144          |
+| RDKit + Random Forest + SMOTE       |     0.85      |  0.80         |    0.87            |   0.73        |   0.9047             |
+| RDKit + XGBoost                                  |     0.83              |     0.77      |     0.86           |       0.80            |       0.8969         |
+| Morgan Fingerprint + Random Forest |        0.83           |    0.70       |     0.83           |        0.73           |      0.8394          |
+| Morgan Fingerprint + RF + SMOTE     |     0.85               |   0.74       |      0.85          |       0.77            |      0.8522          |
+| Morgan Fingerprint + XGBoost           |     0.83               |     0.71      |     0.83          |     0.74              |      0.8829           |
+
+from the results, the rdkit-featurised data trained random forest model remains the best performing model for this task.
+It has the best AUROC score, while still maintaining good precision and recall.
+
 ## References
 - https://www.rdkit.org/docs/index.html
 - https://scikit-learn.org/stable/modules/model_evaluation.html
